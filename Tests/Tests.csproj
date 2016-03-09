@@ -41,13 +41,14 @@
     <Compile Include="UImage\SimpleTests.cs" />
     <Compile Include="UImage\GzipTests.cs" />
     <Compile Include="ELF\SectionGettingTests.cs" />
+    <Compile Include="MachO\OpeningTests.cs" />
+    <Compile Include="MachO\SymbolTableTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="nunit.framework">
       <HintPath>..\Lib\nunit.framework.dll</HintPath>
-      <Package>nunit</Package>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
