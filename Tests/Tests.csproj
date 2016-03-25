@@ -43,6 +43,7 @@
     <Compile Include="ELF\SectionGettingTests.cs" />
     <Compile Include="MachO\OpeningTests.cs" />
     <Compile Include="MachO\SymbolTableTests.cs" />
+    <Compile Include="MachO\EntryPointTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
