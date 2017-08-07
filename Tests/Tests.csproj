@@ -1,59 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{91374C07-064E-445D-AC01-F7BEF7F14C70}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
     <RootNamespace>Tests</RootNamespace>
     <AssemblyName>Tests</AssemblyName>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ELF\NoteSectionTests.cs" />
-    <Compile Include="ELF\OpeningTests.cs" />
-    <Compile Include="ELF\ProgBitsSectionTests.cs" />
-    <Compile Include="ELF\SectionHeadersParsingTests.cs" />
-    <Compile Include="ELF\SegmentsTests.cs" />
-    <Compile Include="ELF\StringTableTests.cs" />
-    <Compile Include="ELF\SymbolTableTests.cs" />
-    <Compile Include="ELF\WebTests.cs" />
-    <Compile Include="Utilities.cs" />
-    <Compile Include="UImage\SimpleTests.cs" />
-    <Compile Include="UImage\GzipTests.cs" />
-    <Compile Include="ELF\SectionGettingTests.cs" />
-    <Compile Include="MachO\OpeningTests.cs" />
-    <Compile Include="MachO\SymbolTableTests.cs" />
-    <Compile Include="MachO\EntryPointTests.cs" />
-    <Compile Include="MachO\SegmentTests.cs" />
+    <Folder Include="ELF\" />
+    <Folder Include="UImage\" />
+    <Folder Include="MachO\" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\Lib\nunit.framework.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+    <PackageReference Include="NUnit" Version="3.7.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.8.0" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>
@@ -66,14 +27,22 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  
+  <!-- Copy Test Binaries -->
   <ItemGroup>
-    <Folder Include="ELF\" />
-    <Folder Include="UImage\" />
+    <TestFiles Include="$(SourceDir)Binaries\**" />
   </ItemGroup>
+  <Target Name="CopyTestFiles" AfterTargets="Build">
+    <Copy SourceFiles="@(TestFiles)" DestinationFolder="$(TargetDir)Binaries\" SkipUnchangedFiles="false" />
+  </Target>  
+  
   <ItemGroup>
     <ProjectReference Include="..\elfsharp\ELFSharp\ELFSharp.csproj">
       <Project>{CF944E09-7C14-433C-A185-161848E989B3}</Project>
       <Name>ELFSharp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
 </Project>
